@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  background: #0a1929;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(210,100%,10%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(220,100%,15%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(210,100%,10%,1) 0, transparent 50%);
+  min-height: 100vh;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a1929;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #132f4c;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #173a5e;
+}
