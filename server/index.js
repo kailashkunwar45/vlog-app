@@ -25,7 +25,7 @@ app.use('/user', userRouter);
 // Serve static assets in production
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get(/^(?!\/(posts|user)).*$/, (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
