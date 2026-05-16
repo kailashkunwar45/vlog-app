@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Box, Avatar, Divider } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -39,37 +39,44 @@ const Post = ({ post, setCurrentId }) => {
       // The background, blur, border, border-radius, box-shadow and hover are handled by MuiCard / MuiPaper overrides in App.jsx
       overflow: 'hidden'
     }}>
-      <MediaSection post={post} />
-      <Box sx={{ 
-        position: 'absolute', 
-        top: '20px', 
-        left: '20px', 
-        color: 'white', 
-        background: 'rgba(0, 0, 0, 0.4)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        padding: '6px 14px',
-        borderRadius: '20px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 600, letterSpacing: '0.5px' }}>{post.name}</Typography>
-        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>{moment(post.createdAt).fromNow()}</Typography>
+      {/* Header Section */}
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar 
+            sx={{ bgcolor: 'secondary.main', width: 32, height: 32, mr: 1.5, fontSize: '0.9rem' }} 
+            alt={post.name}
+          >
+            {post.name?.charAt(0)}
+          </Avatar>
+          <Box>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white' }}>{post.name}</Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>{moment(post.createdAt).fromNow()}</Typography>
+          </Box>
+        </Box>
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>
+            <MoreHorizIcon />
+          </Button>
+        )}
       </Box>
-      {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-      <Box sx={{ position: 'absolute', top: '20px', right: '20px', color: 'white' }}>
-        <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="default" /></Button>
+
+      {/* Media Section */}
+      <Box sx={{ position: 'relative' }}>
+        <MediaSection post={post} />
       </Box>
-      )}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', m: '10px 20px' }}>
-        <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-      </Box>
-      <Typography sx={{ padding: '0 16px', fontWeight: 700 }} gutterBottom variant="h5" component="h2">{post.title}</Typography>
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
+      
+      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.05)' }} />
+      <CardContent sx={{ pb: 1 }}>
+        <Typography sx={{ fontWeight: 700, mb: 1 }} variant="h6">{post.title}</Typography>
+        <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>{post.message}</Typography>
+        <Typography variant="caption" color="primary" sx={{ display: 'block' }}>
+          {post.tags.map((tag) => `#${tag} `)}
+        </Typography>
       </CardContent>
-      <CardActions sx={{ padding: '0 16px 8px 16px', display: 'flex', justifyContent: 'space-between' }}>
+
+      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.05)', mx: 2 }} />
+
+      <CardActions sx={{ padding: '8px 16px', display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', gap: 1 }}>
           <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
             <Likes />
