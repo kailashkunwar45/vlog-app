@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5001' });
+const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+    window.location.hostname === '[::1]' ||
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+const API = axios.create({ baseURL: isLocalhost ? 'http://localhost:5001' : 'https://vlog-app-5lvn.onrender.com' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {

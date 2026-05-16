@@ -42,8 +42,8 @@ const Navbar = () => {
   }, [location]);
 
   // Notification Logic
-  const myPosts = posts.filter((post) => post.creator === (user?.result?._id || user?.result?.googleId));
-  const postsWithActivity = myPosts.filter(p => p.likes.length > 0 || p.comments.length > 0);
+  const myPosts = (posts || []).filter((post) => post.creator === (user?.result?._id || user?.result?.googleId));
+  const postsWithActivity = myPosts.filter(p => (p.likes?.length || 0) > 0 || (p.comments?.length || 0) > 0);
   const notificationCount = postsWithActivity.length;
 
   const handleNotificationClick = (event) => {
@@ -127,7 +127,7 @@ const Navbar = () => {
                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{post.title}</Typography>
                        <Typography variant="caption" sx={{ color: '#9CA3AF' }}>
-                         👍 {post.likes.length} &nbsp;&nbsp; 💬 {post.comments.length}
+                         👍 {post.likes?.length || 0} &nbsp;&nbsp; 💬 {post.comments?.length || 0}
                        </Typography>
                      </Box>
                   </MenuItem>

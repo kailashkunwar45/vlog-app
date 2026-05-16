@@ -7,6 +7,7 @@ export const getPosts = createAsyncThunk('posts/getPosts', async () => {
         return data;
     } catch (error) {
         console.log(error);
+        return [];
     }
 });
 
@@ -68,7 +69,7 @@ const postSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getPosts.fulfilled, (state, action) => {
-                state.posts = action.payload;
+                state.posts = action.payload || [];
                 state.isLoading = false;
             })
             .addCase(createPost.fulfilled, (state, action) => {

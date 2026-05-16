@@ -34,7 +34,7 @@ const Profile = () => {
     );
   }
 
-  const myPosts = posts.filter((post) => post.creator === (user?.result?._id || user?.result?.googleId));
+  const myPosts = (posts || []).filter((post) => post.creator === (user?.result?._id || user?.result?.googleId));
 
   return (
     <Container component="main" maxWidth="lg">
@@ -83,7 +83,7 @@ const Profile = () => {
 
       <Box sx={{ mt: 8, mb: 4 }}>
         <Typography variant="h4" className="clash-heading" sx={{ mb: 4, fontWeight: 800, color: 'white' }}>My Vlogs</Typography>
-        {myPosts.length > 0 ? (
+        {myPosts?.length > 0 ? (
           <Grid container alignItems="stretch" spacing={3}>
             {myPosts.map((post) => (
               <Grid key={post._id} item xs={12} sm={6} md={4}>
