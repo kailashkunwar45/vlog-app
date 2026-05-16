@@ -89,15 +89,15 @@ const Navbar = () => {
         {user?.result ? (
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
             <Tooltip title="Home">
-              <IconButton component={Link} to="/" sx={{ color: 'white' }}>
-                <HomeIcon fontSize="large" />
+              <IconButton component={Link} to="/" sx={{ color: 'white', p: 1 }}>
+                <HomeIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
             
             <Tooltip title="Notifications">
-              <IconButton onClick={handleNotificationClick} sx={{ color: 'white' }}>
-                <Badge badgeContent={notificationCount} color="secondary">
-                  <NotificationsIcon fontSize="large" />
+              <IconButton onClick={handleNotificationClick} sx={{ color: 'white', p: 1 }}>
+                <Badge badgeContent={notificationCount} color="secondary" sx={{ '& .MuiBadge-badge': { fontSize: '0.65rem', height: 16, minWidth: 16 } }}>
+                  <NotificationsIcon fontSize="medium" />
                 </Badge>
               </IconButton>
             </Tooltip>
@@ -136,26 +136,26 @@ const Navbar = () => {
             </Menu>
 
             <Tooltip title="Create Vlog">
-              <IconButton component={Link} to="/create" sx={{ color: 'white' }}>
-                <AddBoxIcon fontSize="large" />
+              <IconButton component={Link} to="/create" sx={{ color: 'white', p: 1 }}>
+                <AddBoxIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
             
             <Tooltip title="Edit My Blogs">
-              <IconButton component={Link} to="/myblogs" sx={{ color: 'white' }}>
-                <EditNoteIcon fontSize="large" />
+              <IconButton component={Link} to="/myblogs" sx={{ color: 'white', p: 1 }}>
+                <EditNoteIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Profile">
               <IconButton component={Link} to="/profile" sx={{ color: 'white', p: 0.5 }}>
-                <Avatar sx={{ bgcolor: 'secondary.main', width: 40, height: 40 }} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+                <Avatar sx={{ bgcolor: 'secondary.main', width: 32, height: 32, fontSize: '0.9rem' }} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Logout">
-              <IconButton onClick={handleLogout} sx={{ color: '#F43F5E' }}>
-                <LogoutIcon fontSize="large" />
+              <IconButton onClick={handleLogout} sx={{ color: '#F43F5E', p: 1 }}>
+                <LogoutIcon fontSize="medium" />
               </IconButton>
             </Tooltip>
           </Box>
