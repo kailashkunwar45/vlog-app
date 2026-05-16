@@ -11,6 +11,7 @@ const CommentSection = ({ post }) => {
   const commentsRef = useRef();
 
   const handleClick = async () => {
+    if (!comment.trim()) return;
     const finalComment = `${user.result.name}: ${comment}`;
     const newComments = await dispatch(commentPost({ value: finalComment, id: post._id }));
     
@@ -32,21 +33,42 @@ const CommentSection = ({ post }) => {
         <div ref={commentsRef} />
       </Box>
       {user?.result?.name && (
-        <Box sx={{ width: '100%' }}>
-          <Typography gutterBottom variant="subtitle1">Write a Comment</Typography>
+        <Box sx={{ width: '100%', mt: 1, display: 'flex', alignItems: 'center' }}>
           <TextField 
             fullWidth 
-            rows={2} 
+            size="small"
             variant="outlined" 
-            label="Comment" 
+            placeholder="Write a comment..." 
             multiline 
+            maxRows={4}
             value={comment} 
             onChange={(e) => setComment(e.target.value)} 
-            sx={{ mb: 1 }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (comment.trim()) handleClick();
+              }
+            }}
+            autoFocus
+            sx={{ 
+              '& .MuiOutlinedInput-root': { 
+                borderRadius: '20px',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                paddingRight: '4px'
+              } 
+            }}
+            InputProps={{
+              endAdornment: (
+                <Button 
+                  disabled={!comment.trim()} 
+                  onClick={handleClick}
+                  sx={{ borderRadius: '15px', textTransform: 'none', fontWeight: 'bold' }}
+                >
+                  Post
+                </Button>
+              )
+            }}
           />
-          <Button fullWidth disabled={!comment} variant="contained" color="primary" onClick={handleClick}>
-            Comment
-          </Button>
         </Box>
       )}
     </Box>
