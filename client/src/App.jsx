@@ -116,7 +116,7 @@ const App = () => (
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ pt: 4, pb: 4 }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 10, md: 4 }, pb: 4 }}>
         <Navbar />
         <Routes>
           <Route path="/" exact element={<Home />} />

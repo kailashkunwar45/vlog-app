@@ -5,6 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,7 +66,7 @@ const Navbar = () => {
         mt: { xs: 0, md: 2 },
         top: { xs: 0, md: 16 },
         bottom: 'auto',
-        position: 'sticky',
+        position: { xs: 'fixed', md: 'sticky' },
         left: 0,
         right: 0,
         zIndex: 1100,
@@ -80,9 +81,14 @@ const Navbar = () => {
       }}
     >
       <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-        <Typography variant="h2" align="center" className="clash-heading" sx={{ fontSize: { xs: '1.5rem', sm: '2.5rem' }, fontWeight: 800, background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #F43F5E)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.02em' }}>
-          Memories
-        </Typography>
+        <AutoStoriesIcon sx={{ 
+          fontSize: { xs: '2.2rem', sm: '2.8rem' }, 
+          p: 0.5,
+          background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #F43F5E)', 
+          borderRadius: '12px',
+          color: 'white',
+          boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)'
+        }} />
       </Box>
 
       <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end', width: 'auto', minHeight: 'auto', p: 0 }}>
