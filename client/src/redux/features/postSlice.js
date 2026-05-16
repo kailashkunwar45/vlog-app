@@ -46,6 +46,15 @@ export const likePost = createAsyncThunk('posts/likePost', async (id) => {
     }
 });
 
+export const commentPost = createAsyncThunk('posts/commentPost', async ({ value, id }) => {
+    try {
+        const { data } = await api.commentPost(value, id);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 const postSlice = createSlice({
     name: 'posts',
     initialState: {
@@ -72,6 +81,9 @@ const postSlice = createSlice({
                 state.posts = state.posts.filter((post) => post._id !== action.payload);
             })
             .addCase(likePost.fulfilled, (state, action) => {
+                state.posts = state.posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+            })
+            .addCase(commentPost.fulfilled, (state, action) => {
                 state.posts = state.posts.map((post) => (post._id === action.payload._id ? action.payload : post));
             });
     },

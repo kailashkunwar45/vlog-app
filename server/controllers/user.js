@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 import UserModal from "../models/user.js";
 
@@ -45,4 +46,16 @@ export const signup = async (req, res) => {
 
     console.log(error);
   }
+};
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email, imageUrl } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+
+  const updatedUser = { name, email, imageUrl, _id: id };
+
+  await UserModal.findByIdAndUpdate(id, updatedUser, { new: true });
+
+  res.json(updatedUser);
 };

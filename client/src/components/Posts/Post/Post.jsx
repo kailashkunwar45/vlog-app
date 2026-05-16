@@ -8,8 +8,11 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { likePost, deletePost } from '../../../redux/features/postSlice';
+import CommentSection from './CommentSection';
+import MediaSection from './MediaSection';
 
 const Post = ({ post, setCurrentId }) => {
+  const [showComments, setShowComments] = React.useState(false);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -31,19 +34,28 @@ const Post = ({ post, setCurrentId }) => {
       display: 'flex', 
       flexDirection: 'column', 
       justifyContent: 'space-between', 
-      borderRadius: '15px', 
       height: '100%', 
       position: 'relative',
-      background: 'rgba(255, 255, 255, 0.05)',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      transition: 'transform 0.2s',
-      '&:hover': { transform: 'scale(1.02)' }
+      // The background, blur, border, border-radius, box-shadow and hover are handled by MuiCard / MuiPaper overrides in App.jsx
+      overflow: 'hidden'
     }}>
-      <CardMedia sx={{ height: 0, pt: '56.25%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backgroundBlendMode: 'darken' }} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-      <Box sx={{ position: 'absolute', top: '20px', left: '20px', color: 'white' }}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
+      <MediaSection post={post} />
+      <Box sx={{ 
+        position: 'absolute', 
+        top: '20px', 
+        left: '20px', 
+        color: 'white', 
+        background: 'rgba(0, 0, 0, 0.4)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        padding: '6px 14px',
+        borderRadius: '20px',
+        border: '1px solid rgba(255,255,255,0.1)',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <Typography variant="subtitle2" sx={{ fontWeight: 600, letterSpacing: '0.5px' }}>{post.name}</Typography>
+        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>{moment(post.createdAt).fromNow()}</Typography>
       </Box>
       {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
       <Box sx={{ position: 'absolute', top: '20px', right: '20px', color: 'white' }}>
@@ -58,15 +70,25 @@ const Post = ({ post, setCurrentId }) => {
         <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
       </CardContent>
       <CardActions sx={{ padding: '0 16px 8px 16px', display: 'flex', justifyContent: 'space-between' }}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
-          <Likes />
-        </Button>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+            <Likes />
+          </Button>
+          <Button size="small" color="primary" onClick={() => setShowComments(!showComments)}>
+            Comments ({post?.comments?.length || 0})
+          </Button>
+        </Box>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
           <DeleteIcon fontSize="small" /> Delete
         </Button>
         )}
       </CardActions>
+      {showComments && (
+        <Box sx={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', background: 'rgba(0, 0, 0, 0.2)' }}>
+          <CommentSection post={post} />
+        </Box>
+      )}
     </Card>
   );
 };

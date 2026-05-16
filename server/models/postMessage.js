@@ -6,8 +6,9 @@ const postSchema = mongoose.Schema({
     name: String,
     creator: String,
     tags: [String],
-    selectedFile: String,
+    mediaItems: [mongoose.Schema.Types.Mixed],
     likes: { type: [String], default: [] },
+    comments: { type: [String], default: [] },
     createdAt: {
         type: Date,
         default: new Date(),

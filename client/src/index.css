@@ -1,30 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
 
 body {
   margin: 0;
-  font-family: 'Outfit', sans-serif;
-  background: #0a1929;
+  font-family: 'Inter', sans-serif;
+  background-color: #05070B;
   background-image: 
-    radial-gradient(at 0% 0%, hsla(210,100%,10%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(220,100%,15%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(210,100%,10%,1) 0, transparent 50%);
+    radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(244,63,94,0.12), transparent 35%);
+  background-attachment: fixed;
   min-height: 100vh;
-  color: white;
+  color: #E5E7EB;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .clash-heading {
+  font-family: 'Clash Display', sans-serif;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a1929;
+  background: #05070B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #132f4c;
-  border-radius: 5px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #173a5e;
+  background: rgba(255,255,255,0.2);
 }

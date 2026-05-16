@@ -28,3 +28,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Deployment Secrets
+DEPLOYMENT_ENV.txt
