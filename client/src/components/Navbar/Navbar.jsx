@@ -20,6 +20,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.posts);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -52,6 +53,14 @@ const Navbar = () => {
   };
   const handleNotificationClose = () => {
     setAnchorEl(null);
+  };
+  
+  const handleProfileMenuClick = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+  
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null);
   };
 
   return (
@@ -154,16 +163,33 @@ const Navbar = () => {
             </Tooltip>
 
             <Tooltip title="Profile">
-              <IconButton component={Link} to="/profile" sx={{ color: 'white', p: 0.5 }}>
+              <IconButton onClick={handleProfileMenuClick} sx={{ color: 'white', p: 0.5 }}>
                 <Avatar sx={{ bgcolor: 'secondary.main', width: 32, height: 32, fontSize: '0.9rem' }} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Logout">
-              <IconButton onClick={handleLogout} sx={{ color: '#F43F5E', p: 1 }}>
-                <LogoutIcon fontSize="medium" />
-              </IconButton>
-            </Tooltip>
+            <Menu
+              anchorEl={profileAnchorEl}
+              open={Boolean(profileAnchorEl)}
+              onClose={handleProfileMenuClose}
+              PaperProps={{
+                sx: {
+                  mt: 1.5,
+                  background: 'rgba(30, 40, 60, 0.8)',
+                  backdropFilter: 'blur(24px)',
+                  color: 'white',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  minWidth: '180px'
+                }
+              }}
+            >
+              <MenuItem onClick={() => { handleProfileMenuClose(); navigate('/profile'); }}>My Profile</MenuItem>
+              <MenuItem onClick={() => { handleProfileMenuClose(); navigate('/myblogs'); }}>My Blogs</MenuItem>
+              <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+              <MenuItem onClick={() => { handleProfileMenuClose(); handleLogout(); }} sx={{ color: '#F43F5E' }}>
+                <LogoutIcon fontSize="small" sx={{ mr: 1 }} /> Logout
+              </MenuItem>
+            </Menu>
           </Box>
 
         ) : (

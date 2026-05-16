@@ -3,7 +3,7 @@ import { Container, Paper, Typography, TextField, Button, Box, Avatar, Grid, Div
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FileBase from 'react-file-base64';
-import { updateUser } from '../../redux/features/authSlice';
+import { updateUser, logout } from '../../redux/features/authSlice';
 import { getPosts } from '../../redux/features/postSlice';
 import Post from '../Posts/Post/Post';
 
@@ -22,6 +22,11 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUser({ id: user?.result?._id, formData, navigate }));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/auth');
   };
 
   if (!user) {
@@ -74,8 +79,11 @@ const Profile = () => {
                 onDone={({ base64 }) => setFormData({ ...formData, imageUrl: base64 })} 
               />
             </Box>
-            <Button type="submit" variant="contained" color="primary" fullWidth size="large">
+            <Button type="submit" variant="contained" color="primary" fullWidth size="large" sx={{ mb: 2 }}>
               Update Profile
+            </Button>
+            <Button variant="outlined" color="secondary" fullWidth size="large" onClick={handleLogout}>
+              Logout
             </Button>
           </form>
         </Box>
