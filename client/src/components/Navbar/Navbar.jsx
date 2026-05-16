@@ -60,32 +60,32 @@ const Navbar = () => {
         background: 'rgba(255, 255, 255, 0.02)', 
         backdropFilter: 'blur(24px)', 
         WebkitBackdropFilter: 'blur(24px)',
-        borderRadius: { xs: '24px 24px 0 0', md: 4 }, 
-        mb: { xs: 0, md: 4 }, 
-        mt: { xs: 'auto', md: 2 },
-        top: { xs: 'auto', md: 16 },
-        bottom: { xs: 0, md: 'auto' },
-        position: { xs: 'fixed', md: 'sticky' },
-        left: { xs: 0, md: 'auto' },
-        right: { xs: 0, md: 'auto' },
+        borderRadius: { xs: 0, md: 4 }, 
+        mb: { xs: 4, md: 4 }, 
+        mt: { xs: 0, md: 2 },
+        top: { xs: 0, md: 16 },
+        bottom: 'auto',
+        position: 'sticky',
+        left: 0,
+        right: 0,
         zIndex: 1100,
         display: 'flex', 
-        flexDirection: { xs: 'column', sm: 'row' }, 
+        flexDirection: 'row', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
-        padding: { xs: '10px 20px', sm: '10px 50px' },
+        padding: { xs: '10px 16px', sm: '10px 50px' },
         border: '1px solid rgba(255, 255, 255, 0.08)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-        boxShadow: '0 -8px 32px 0 rgba(0, 0, 0, 0.37)'
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
       }}
     >
       <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-        <Typography variant="h2" align="center" className="clash-heading" sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, fontWeight: 800, background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #F43F5E)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.02em' }}>
+        <Typography variant="h2" align="center" className="clash-heading" sx={{ fontSize: { xs: '1.5rem', sm: '2.5rem' }, fontWeight: 800, background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #F43F5E)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.02em' }}>
           Memories
         </Typography>
       </Box>
 
-      <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end', width: { xs: '100%', sm: '50%' } }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end', width: 'auto', minHeight: 'auto', p: 0 }}>
         {user?.result ? (
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
             <Tooltip title="Home">
